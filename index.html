@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CertificateWallah - Find Your Perfect Internship</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">CertificateWallah</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="internships.html">Internships</a></li>
+                <li><a href="post-internship.html">Post Internship</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <h1>Welcome to CertificateWallah</h1>
+                <p>Find Your Perfect Internship</p>
+                <a href="internships.html" class="cta-button">Explore Internships</a>
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container" data-aos="fade-up" data-aos-delay="200">
+                <input type="text" id="homeSearchInput" placeholder="Search internships by keywords...">
+            </div>
+        </section>
+
+        <section class="latest-internships">
+            <h2 data-aos="fade-up">Latest Opportunities</h2>
+            <div class="internships-grid">
+                <div class="internship-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Software Development Intern</h3>
+                    <p class="company">TechCorp Inc.</p>
+                    <p class="location">Remote</p>
+                    <p class="stipend">$1,500/month</p>
+                    <a href="internship-details.html?id=1" class="view-details">View Details</a>
+                </div>
+
+                <div class="internship-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Marketing Assistant</h3>
+                    <p class="company">GrowthMakers</p>
+                    <p class="location">New York, NY</p>
+                    <p class="stipend">$1,200/month</p>
+                    <a href="internship-details.html?id=2" class="view-details">View Details</a>
+                </div>
+
+                <div class="internship-card" data-aos="fade-up" data-aos-delay="500">
+                    <h3>UI/UX Design Intern</h3>
+                    <p class="company">CreativeHub</p>
+                    <p class="location">San Francisco, CA</p>
+                    <p class="stipend">$1,800/month</p>
+                    <a href="internship-details.html?id=3" class="view-details">View Details</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2 data-aos="fade-up">Why Choose CertificateWallah?</h2>
+            <div class="feature-grid">
+                <div class="feature" data-aos="fade-up" data-aos-delay="200">
+                    <h3>AI-Powered Search</h3>
+                    <p>Find the perfect match with our intelligent search system</p>
+                </div>
+                <div class="feature" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Verified Companies</h3>
+                    <p>All listings are from trusted and verified organizations</p>
+                </div>
+                <div class="feature" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Easy Application</h3>
+                    <p>Apply to multiple internships with just a few clicks</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CertificateWallah. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init();
+
+        // Home page search functionality
+        const homeSearchInput = document.getElementById('homeSearchInput');
+        const internshipCards = document.querySelectorAll('.internship-card');
+
+        homeSearchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            internshipCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const company = card.querySelector('.company').textContent.toLowerCase();
+                const location = card.querySelector('.location').textContent.toLowerCase();
+                
+                const matches = title.includes(searchTerm) || 
+                              company.includes(searchTerm) || 
+                              location.includes(searchTerm);
+                
+                card.style.display = matches ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internships - CertificateWallah</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">CertificateWallah</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="internships.html" class="active">Internships</a></li>
+                <li><a href="post-internship.html">Post Internship</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <h1 data-aos="fade-up">Available Internships</h1>
+            <div class="search-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="Search internships by title, company, or category...">
+                    <div id="searchSuggestions" class="search-suggestions"></div>
+                </div>
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="tech">Technology</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="design">Design</option>
+                    <option value="business">Business</option>
+                    <option value="finance">Finance</option>
+                    <option value="hr">Human Resources</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="internships-list">
+            <div class="internships-grid">
+                <!-- Sample internship cards - will be populated dynamically -->
+                <div class="internship-card" data-aos="fade-up" data-category="tech">
+                    <div class="card-header">
+                        <h3>Software Development Intern</h3>
+                        <span class="category-tag tech">Technology</span>
+                    </div>
+                    <p class="company">TechCorp Inc.</p>
+                    <p class="location">Remote</p>
+                    <div class="card-details">
+                        <p class="stipend">$1,500/month</p>
+                        <p class="duration">3 months</p>
+                    </div>
+                    <a href="https://techcorp.com/apply" target="_blank" class="apply-button">Apply Now</a>
+                </div>
+
+                <div class="internship-card" data-aos="fade-up" data-aos-delay="100" data-category="marketing">
+                    <div class="card-header">
+                        <h3>Marketing Assistant</h3>
+                        <span class="category-tag marketing">Marketing</span>
+                    </div>
+                    <p class="company">GrowthMakers</p>
+                    <p class="location">New York, NY</p>
+                    <div class="card-details">
+                        <p class="stipend">$1,200/month</p>
+                        <p class="duration">6 months</p>
+                    </div>
+                    <a href="https://growthmakers.com/apply" target="_blank" class="apply-button">Apply Now</a>
+                </div>
+
+                <div class="internship-card" data-aos="fade-up" data-aos-delay="200" data-category="design">
+                    <div class="card-header">
+                        <h3>UI/UX Design Intern</h3>
+                        <span class="category-tag design">Design</span>
+                    </div>
+                    <p class="company">CreativeHub</p>
+                    <p class="location">San Francisco, CA</p>
+                    <div class="card-details">
+                        <p class="stipend">$1,800/month</p>
+                        <p class="duration">4 months</p>
+                    </div>
+                    <a href="https://creativehub.com/apply" target="_blank" class="apply-button">Apply Now</a>
+                </div>
+
+                <div class="internship-card" data-aos="fade-up" data-aos-delay="300" data-category="business">
+                    <div class="card-header">
+                        <h3>Business Development Intern</h3>
+                        <span class="category-tag business">Business</span>
+                    </div>
+                    <p class="company">Global Ventures</p>
+                    <p class="location">Chicago, IL</p>
+                    <div class="card-details">
+                        <p class="stipend">$1,400/month</p>
+                        <p class="duration">5 months</p>
+                    </div>
+                    <a href="https://globalventures.com/apply" target="_blank" class="apply-button">Apply Now</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CertificateWallah. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init();
+
+        // Search and filter functionality
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const searchSuggestions = document.getElementById('searchSuggestions');
+        const internshipCards = document.querySelectorAll('.internship-card');
+
+        // AI-powered search suggestions
+        const categories = ['Technology', 'Marketing', 'Design', 'Business', 'Finance', 'HR'];
+        const companies = ['TechCorp', 'GrowthMakers', 'CreativeHub', 'Global Ventures'];
+        const locations = ['Remote', 'New York', 'San Francisco', 'Chicago'];
+
+        function getSuggestions(searchTerm) {
+            const suggestions = new Set();
+            
+            // Add matching categories
+            categories.forEach(category => {
+                if (category.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    suggestions.add(category);
+                }
+            });
+
+            // Add matching companies
+            companies.forEach(company => {
+                if (company.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    suggestions.add(company);
+                }
+            });
+
+            // Add matching locations
+            locations.forEach(location => {
+                if (location.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    suggestions.add(location);
+                }
+            });
+
+            return Array.from(suggestions);
+        }
+
+        function updateSearchSuggestions(searchTerm) {
+            if (searchTerm.length < 2) {
+                searchSuggestions.style.display = 'none';
+                return;
+            }
+
+            const suggestions = getSuggestions(searchTerm);
+            
+            if (suggestions.length > 0) {
+                searchSuggestions.innerHTML = suggestions
+                    .map(suggestion => `<div class="suggestion">${suggestion}</div>`)
+                    .join('');
+                searchSuggestions.style.display = 'block';
+            } else {
+                searchSuggestions.style.display = 'none';
+            }
+        }
+
+        function filterInternships() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            internshipCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const company = card.querySelector('.company').textContent.toLowerCase();
+                const category = card.dataset.category;
+                const location = card.querySelector('.location').textContent.toLowerCase();
+
+                const matchesSearch = title.includes(searchTerm) || 
+                                    company.includes(searchTerm) || 
+                                    location.includes(searchTerm);
+                const matchesCategory = !selectedCategory || category === selectedCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'block';
+                    // Reinitialize AOS animation
+                    AOS.refresh();
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', () => {
+            updateSearchSuggestions(searchInput.value);
+            filterInternships();
+        });
+
+        categoryFilter.addEventListener('change', filterInternships);
+
+        // Handle suggestion clicks
+        searchSuggestions.addEventListener('click', (e) => {
+            if (e.target.classList.contains('suggestion')) {
+                searchInput.value = e.target.textContent;
+                searchSuggestions.style.display = 'none';
+                filterInternships();
+            }
+        });
+
+        // Close suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-wrapper')) {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html> 

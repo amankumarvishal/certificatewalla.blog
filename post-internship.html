@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Internship - CertificateWallah</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">CertificateWallah</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="internships.html">Internships</a></li>
+                <li><a href="post-internship.html" class="active">Post Internship</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="post-internship">
+            <div class="form-container" data-aos="fade-up">
+                <h1>Post a New Internship</h1>
+                <p class="form-subtitle">Fill in the details below to post your internship opportunity</p>
+
+                <form id="internshipForm" class="internship-form">
+                    <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+                        <label for="title">Internship Title</label>
+                        <input type="text" id="title" name="title" required 
+                               placeholder="e.g., Software Development Intern">
+                    </div>
+
+                    <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" required 
+                               placeholder="e.g., TechCorp Inc.">
+                    </div>
+
+                    <div class="form-group" data-aos="fade-up" data-aos-delay="300">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" required 
+                               placeholder="e.g., Remote, New York, NY">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="400">
+                            <label for="duration">Duration (in months)</label>
+                            <input type="number" id="duration" name="duration" required 
+                                   min="1" max="12" placeholder="e.g., 3">
+                        </div>
+
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="500">
+                            <label for="stipend">Stipend (per month)</label>
+                            <input type="number" id="stipend" name="stipend" required 
+                                   min="0" placeholder="e.g., 1500">
+                        </div>
+                    </div>
+
+                    <div class="form-group" data-aos="fade-up" data-aos-delay="600">
+                        <label for="category">Category</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="tech">Technology</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="design">Design</option>
+                            <option value="other">Others</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" data-aos="fade-up" data-aos-delay="700">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="5" required 
+                                  placeholder="Provide a detailed description of the internship..."></textarea>
+                    </div>
+
+                    <div class="form-group" data-aos="fade-up" data-aos-delay="800">
+                        <label for="applyLink">Application Link</label>
+                        <input type="url" id="applyLink" name="applyLink" required 
+                               placeholder="https://your-company.com/apply">
+                    </div>
+
+                    <div class="form-group" data-aos="fade-up" data-aos-delay="900">
+                        <button type="submit" class="submit-button">
+                            <span class="button-text">Post Internship</span>
+                            <div class="button-loader"></div>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Notification Container -->
+                <div id="notification" class="notification"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CertificateWallah. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init();
+
+        // Form submission handling
+        const form = document.getElementById('internshipForm');
+        const submitButton = form.querySelector('.submit-button');
+        const buttonText = submitButton.querySelector('.button-text');
+        const buttonLoader = submitButton.querySelector('.button-loader');
+        const notification = document.getElementById('notification');
+
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        function setLoading(isLoading) {
+            submitButton.disabled = isLoading;
+            buttonText.style.display = isLoading ? 'none' : 'block';
+            buttonLoader.style.display = isLoading ? 'block' : 'none';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            setLoading(true);
+
+            try {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                const response = await fetch('/api/internships', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to post internship');
+                }
+
+                showNotification('Internship posted successfully!');
+                form.reset();
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Error posting internship. Please try again.', 'error');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Input focus effects
+        const inputs = form.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('focused');
+            });
+        });
+    </script>
+</body>
+</html> 

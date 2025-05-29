@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Details - CertificateWallah</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">CertificateWallah</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="internships.html">Internships</a></li>
+                <li><a href="post-internship.html">Post Internship</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="internship-details">
+            <div class="back-link" data-aos="fade-right">
+                <a href="internships.html" class="back-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Internships
+                </a>
+            </div>
+            
+            <div class="details-container">
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state">
+                    <div class="loader"></div>
+                    <p>Loading internship details...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="errorState" class="error-state" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <h2>Internship Not Found</h2>
+                    <p>The internship you're looking for doesn't exist or has been removed.</p>
+                    <a href="internships.html" class="cta-button">Browse Other Internships</a>
+                </div>
+
+                <!-- Content State -->
+                <div id="contentState" class="content-state" style="display: none;">
+                    <div class="header-section" data-aos="fade-up">
+                        <div class="title-section">
+                            <h1 id="internshipTitle">Loading...</h1>
+                            <span id="categoryTag" class="category-tag">Category</span>
+                        </div>
+                        <div class="company-info">
+                            <h2 id="companyName">Company Name</h2>
+                            <p id="location">Location</p>
+                        </div>
+                    </div>
+
+                    <div class="key-details" data-aos="fade-up" data-aos-delay="100">
+                        <div class="detail-item">
+                            <h3>Duration</h3>
+                            <p id="duration">Loading...</p>
+                        </div>
+                        <div class="detail-item">
+                            <h3>Stipend</h3>
+                            <p id="stipend">Loading...</p>
+                        </div>
+                        <div class="detail-item">
+                            <h3>Start Date</h3>
+                            <p id="startDate">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="description-section" data-aos="fade-up" data-aos-delay="200">
+                        <h3>About the Internship</h3>
+                        <div id="description" class="description-content">Loading...</div>
+                    </div>
+
+                    <div class="responsibilities-section" data-aos="fade-up" data-aos-delay="300">
+                        <h3>Responsibilities</h3>
+                        <ul id="responsibilities" class="responsibilities-list">
+                            <li>Loading...</li>
+                        </ul>
+                    </div>
+
+                    <div class="requirements-section" data-aos="fade-up" data-aos-delay="400">
+                        <h3>Requirements</h3>
+                        <ul id="requirements" class="requirements-list">
+                            <li>Loading...</li>
+                        </ul>
+                    </div>
+
+                    <div class="apply-section" data-aos="fade-up" data-aos-delay="500">
+                        <a id="applyButton" href="#" target="_blank" class="apply-button">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CertificateWallah. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init();
+
+        // Get internship ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const internshipId = urlParams.get('id');
+
+        // Show loading state
+        document.getElementById('loadingState').style.display = 'flex';
+        document.getElementById('contentState').style.display = 'none';
+        document.getElementById('errorState').style.display = 'none';
+
+        // Fetch internship details
+        async function loadInternshipDetails() {
+            try {
+                const response = await fetch(`/api/internships/${internshipId}`);
+                if (!response.ok) {
+                    throw new Error('Internship not found');
+                }
+                
+                const data = await response.json();
+                populateInternshipDetails(data);
+                
+                // Hide loading state and show content
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('contentState').style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+                // Show error state
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('errorState').style.display = 'flex';
+            }
+        }
+
+        function populateInternshipDetails(data) {
+            // Update page title
+            document.title = `${data.title} - CertificateWallah`;
+
+            // Update content
+            document.getElementById('internshipTitle').textContent = data.title;
+            document.getElementById('companyName').textContent = data.company;
+            document.getElementById('location').textContent = data.location;
+            document.getElementById('duration').textContent = `${data.duration} months`;
+            document.getElementById('stipend').textContent = `$${data.stipend}/month`;
+            document.getElementById('startDate').textContent = new Date(data.startDate).toLocaleDateString();
+            document.getElementById('description').textContent = data.description;
+            
+            // Update category tag
+            const categoryTag = document.getElementById('categoryTag');
+            categoryTag.textContent = data.category;
+            categoryTag.className = `category-tag ${data.category.toLowerCase()}`;
+
+            // Update responsibilities
+            const responsibilitiesList = document.getElementById('responsibilities');
+            responsibilitiesList.innerHTML = data.responsibilities
+                .map(resp => `<li>${resp}</li>`)
+                .join('');
+
+            // Update requirements
+            const requirementsList = document.getElementById('requirements');
+            requirementsList.innerHTML = data.requirements
+                .map(req => `<li>${req}</li>`)
+                .join('');
+
+            // Update apply button
+            const applyButton = document.getElementById('applyButton');
+            applyButton.href = data.applyLink;
+        }
+
+        // Load internship details when page loads
+        if (internshipId) {
+            loadInternshipDetails();
+        } else {
+            // Show error state if no ID provided
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'flex';
+        }
+    </script>
+</body>
+</html> 

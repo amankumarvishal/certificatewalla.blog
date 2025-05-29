@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - CertificateWallah</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">CertificateWallah</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="internships.html">Internships</a></li>
+                <li><a href="post-internship.html">Post Internship</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-hero" data-aos="fade-up">
+            <div class="contact-content">
+                <h1>Get in Touch</h1>
+                <p class="subtitle">We'd love to hear from you</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info" data-aos="fade-right">
+                    <h2>Contact Information</h2>
+                    <div class="info-item">
+                        <h3>📍 Address</h3>
+                        <p>123 Innovation Street<br>Tech City, TC 12345</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>📧 Email</h3>
+                        <p>info@certificatewallah.com</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>📞 Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>⏰ Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="contact-form-container" data-aos="fade-left">
+                    <h2>Send us a Message</h2>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required 
+                                   placeholder="Your name">
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required 
+                                   placeholder="your.email@example.com">
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="300">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required 
+                                   placeholder="What's this about?">
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="400">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required 
+                                      placeholder="Your message here..."></textarea>
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="500">
+                            <button type="submit" class="submit-button">
+                                <span class="button-text">Send Message</span>
+                                <div class="button-loader"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CertificateWallah. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Form validation
+        const contactForm = document.getElementById('contactForm');
+        const formGroups = contactForm.querySelectorAll('.form-group');
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(input, message) {
+            const formGroup = input.parentElement;
+            const errorDiv = formGroup.querySelector('.error-message');
+            errorDiv.textContent = message;
+            formGroup.classList.add('error');
+        }
+
+        function clearError(input) {
+            const formGroup = input.parentElement;
+            const errorDiv = formGroup.querySelector('.error-message');
+            errorDiv.textContent = '';
+            formGroup.classList.remove('error');
+        }
+
+        formGroups.forEach(group => {
+            const input = group.querySelector('input, textarea');
+            input.addEventListener('input', () => {
+                clearError(input);
+            });
+        });
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Validate name
+            const name = document.getElementById('name');
+            if (name.value.trim().length < 2) {
+                showError(name, 'Name must be at least 2 characters long');
+                isValid = false;
+            }
+
+            // Validate email
+            const email = document.getElementById('email');
+            if (!validateEmail(email.value)) {
+                showError(email, 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            // Validate subject
+            const subject = document.getElementById('subject');
+            if (subject.value.trim().length < 5) {
+                showError(subject, 'Subject must be at least 5 characters long');
+                isValid = false;
+            }
+
+            // Validate message
+            const message = document.getElementById('message');
+            if (message.value.trim().length < 10) {
+                showError(message, 'Message must be at least 10 characters long');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            const submitButton = contactForm.querySelector('.submit-button');
+            const buttonText = submitButton.querySelector('.button-text');
+            const buttonLoader = submitButton.querySelector('.button-loader');
+
+            try {
+                submitButton.disabled = true;
+                buttonText.style.display = 'none';
+                buttonLoader.style.display = 'block';
+
+                const formData = new FormData(contactForm);
+                const data = Object.fromEntries(formData.entries());
+
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to send message');
+                }
+
+                showNotification('Message sent successfully!', 'success');
+                contactForm.reset();
+            } catch (error) {
+                showNotification('Failed to send message. Please try again.', 'error');
+            } finally {
+                submitButton.disabled = false;
+                buttonText.style.display = 'block';
+                buttonLoader.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html> 

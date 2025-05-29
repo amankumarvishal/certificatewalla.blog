@@ -1,0 +1,97 @@
+[
+  {
+    "id": 1,
+    "title": "Web Development Internship",
+    "company": "Tech Solutions",
+    "location": "Remote",
+    "duration": "3 months",
+    "stipend": "₹10,000/month",
+    "category": "Tech",
+    "description": "Work on frontend and backend projects using React and Node.js. You'll be involved in developing responsive web applications, implementing RESTful APIs, and working with modern web technologies. This is a great opportunity to gain hands-on experience in full-stack development.",
+    "requirements": [
+      "Basic knowledge of HTML, CSS, and JavaScript",
+      "Familiarity with React.js",
+      "Understanding of Node.js and Express",
+      "Good problem-solving skills",
+      "Strong communication abilities"
+    ],
+    "applyLink": "https://example.com/apply/1",
+    "createdAt": "2024-01-15T10:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Digital Marketing Internship",
+    "company": "MarketGuru",
+    "location": "Delhi",
+    "duration": "2 months",
+    "stipend": "₹8,000/month",
+    "category": "Marketing",
+    "description": "Assist in SEO, content marketing, and social media campaigns. You'll work closely with our marketing team to create engaging content, manage social media accounts, and analyze campaign performance. This role offers hands-on experience in digital marketing strategies and tools.",
+    "requirements": [
+      "Strong written and verbal communication skills",
+      "Basic understanding of digital marketing concepts",
+      "Familiarity with social media platforms",
+      "Creative thinking and content creation abilities",
+      "Analytical mindset"
+    ],
+    "applyLink": "https://example.com/apply/2",
+    "createdAt": "2024-01-16T14:30:00.000Z"
+  },
+  {
+    "id": 3,
+    "title": "UI/UX Design Internship",
+    "company": "DesignHub",
+    "location": "Mumbai",
+    "duration": "3 months",
+    "stipend": "₹12,000/month",
+    "category": "Design",
+    "description": "Create beautiful and intuitive user interfaces for web and mobile applications. You'll work on wireframing, prototyping, and user research to deliver exceptional user experiences. This internship provides exposure to the complete design process from concept to implementation.",
+    "requirements": [
+      "Proficiency in Figma or Adobe XD",
+      "Understanding of UI/UX principles",
+      "Portfolio demonstrating design skills",
+      "Attention to detail",
+      "Ability to work in a team"
+    ],
+    "applyLink": "https://example.com/apply/3",
+    "createdAt": "2024-01-17T09:15:00.000Z"
+  },
+  {
+    "id": 4,
+    "title": "Data Science Internship",
+    "company": "DataAnalytics Pro",
+    "location": "Bangalore",
+    "duration": "6 months",
+    "stipend": "₹15,000/month",
+    "category": "Tech",
+    "description": "Work on real-world data analysis projects using Python, R, and machine learning algorithms. You'll be involved in data cleaning, analysis, visualization, and building predictive models. This role offers exposure to cutting-edge data science tools and techniques.",
+    "requirements": [
+      "Strong programming skills in Python or R",
+      "Understanding of statistics and machine learning",
+      "Experience with data visualization tools",
+      "Problem-solving abilities",
+      "Knowledge of SQL"
+    ],
+    "applyLink": "https://example.com/apply/4",
+    "createdAt": "2024-01-18T11:45:00.000Z"
+  },
+  {
+    "id": 5,
+    "title": "Content Writing Internship",
+    "company": "ContentCraft",
+    "location": "Remote",
+    "duration": "2 months",
+    "stipend": "₹7,000/month",
+    "category": "Content",
+    "description": "Create engaging content for blogs, social media, and marketing materials. You'll work on various content types including blog posts, social media updates, and email newsletters. This role offers hands-on experience in content strategy and digital marketing.",
+    "requirements": [
+      "Excellent writing and editing skills",
+      "Understanding of SEO principles",
+      "Research abilities",
+      "Creativity and attention to detail",
+      "Time management skills"
+    ],
+    "applyLink": "https://example.com/apply/5",
+    "createdAt": "2024-01-19T16:20:00.000Z"
+  }
+] 
